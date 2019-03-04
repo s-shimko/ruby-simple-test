@@ -1,21 +1,20 @@
-require 'rubygems'
 require 'selenium-webdriver'
-# require 'capybara'
+require 'capybara'
+require 'capybara/dsl'
 
-Selenium::WebDriver::Chrome.driver_path="/home/dev/sergey/tools/webdrivers/chromedriver241/chromedriver"
-options = Selenium::WebDriver::Chrome::Options.new(args: ['headless'])
-driver = Selenium::WebDriver.for(:chrome, options: options)
-# visit("http://google.by")
-# driver = Selenium::WebDriver.for :chrome
-driver.manage.timeouts.implicit_wait = 10
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome, :driver_path =>"/home/dev/sergey/tools/webdrivers/chromedriver241/chromedriver")
+end
 
-driver.get "http://google.by"
-puts "Page title is #{driver.title}"
-element = driver.find_element(:xpath => "//input[@name='q']")
-element.send_keys "Cheese!"
-element.submit
+Capybara.configure do |config|
+  config.default_max_wait_time = 10 # seconds
+  config.default_driver        = :selenium
+end
+# driver =  Capybara.current_session
+# Capybara.default_driver = :selenium_chrome_headless
 
-wait = Selenium::WebDriver::Wait.new(:timeout => 10)
-wait.until { driver.title.downcase.start_with? "cheese!" }
-puts "Page title is #{driver.title}"
-driver.quit
+include Capybara::DSL
+visit("http://google.by")
+find(:xpath, "//input[@name='q']").send_keys("Cheese")
+find(:xpath, "//input[@name='btnK']").click
+puts title
