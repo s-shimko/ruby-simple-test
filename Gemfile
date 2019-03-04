@@ -5,6 +5,7 @@ gem 'selenium-webdriver', '3.13.1'
 gem 'capybara'
 gem 'cucumber'
 gem 'rspec'
+gem 'site_prism'
 
 
 

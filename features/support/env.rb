@@ -4,6 +4,7 @@ require 'capybara'
 require 'cucumber'
 require 'capybara/cucumber'
 require 'rspec'
+require 'site_prism'
 
 
 Capybara.register_driver :selenium do |app|
@@ -11,7 +12,7 @@ Capybara.register_driver :selenium do |app|
 end
 
 Capybara.configure do |config|
-  config.default_max_wait_time = 10 # seconds
+  config.default_max_wait_time = 3 # seconds
   config.default_driver        = :selenium
 end
 
