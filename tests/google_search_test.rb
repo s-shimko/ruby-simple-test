@@ -3,8 +3,10 @@ require 'selenium-webdriver'
 # require 'capybara'
 
 Selenium::WebDriver::Chrome.driver_path="/home/dev/sergey/tools/webdrivers/chromedriver241/chromedriver"
+options = Selenium::WebDriver::Chrome::Options.new(args: ['headless'])
+driver = Selenium::WebDriver.for(:chrome, options: options)
 # visit("http://google.by")
-driver = Selenium::WebDriver.for :chrome
+# driver = Selenium::WebDriver.for :chrome
 driver.manage.timeouts.implicit_wait = 10
 
 driver.get "http://google.by"
