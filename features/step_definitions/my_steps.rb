@@ -13,7 +13,7 @@ When(/^do search$/) do
   page.submit_button.click
 end
 
-When(/^type and verify page name$/) do
+When(/^puts and verify page name$/) do
   puts title
   abort("Error") if title != "Cheese - Google Search"
 end
